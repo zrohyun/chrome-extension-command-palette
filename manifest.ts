@@ -8,6 +8,10 @@ const manifest: chrome.runtime.ManifestV3 = {
   action: {
     default_popup: 'settings.html',
   },
+  background: {
+    type: 'module',
+    service_worker: 'background.js',
+  },
   icons: {
     '16': 'icon-16.png',
     '48': 'icon-48.png',
