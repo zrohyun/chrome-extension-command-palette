@@ -6,12 +6,13 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
+    "clean": "rimraf dist",
     "start": "npm run dev",
-    "dev": "__DEV__=true npm run build -- --watch",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/build.js --dev",
+    "build": "node scripts/build.js",
     "lint": "eslint . && prettier . --check",
     "lint:fix": "eslint --fix . && prettier --write .",
-    "preview": "vite preview"
+    "type-check": "tsc -b"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -24,14 +25,19 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "chokidar": "^3.6.0",
+    "concurrently": "^8.2.2",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
+    "fs-extra": "^11.2.0",
     "globals": "^15.9.0",
     "husky": "^9.1.4",
     "lint-staged": "^15.2.8",
     "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "sass": "^1.77.8",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.0",
     "vite": "^5.4.0"

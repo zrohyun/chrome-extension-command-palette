@@ -17,14 +17,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    /* Enable JSON */
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
     /* Alias */
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "helper", "manifest.ts"]
+  "include": ["src"]
 }
