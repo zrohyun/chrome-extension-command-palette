@@ -7,9 +7,12 @@ import configPrettier from 'eslint-config-prettier'
 
 export default tseslint.config(
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+      configPrettier,
+    ],
     files: ['**/*.{ts,tsx}'],
-    ignores: ['dist', 'docs'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -26,5 +29,7 @@ export default tseslint.config(
       ],
     },
   },
-  configPrettier
+  {
+    ignores: ['dist', 'docs'],
+  }
 )
