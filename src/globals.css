@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  #chrome-extension-command-palette-body {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -31,7 +31,7 @@
     --chart-5: 27 87% 67%;
   }
 
-  .dark {
+  #chrome-extension-command-palette-body.dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
     --card: 20 14.3% 4.1%;
@@ -63,7 +63,8 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  #chrome-extension-command-palette-body {
+    @apply bg-background text-foreground text-base;
   }
 }

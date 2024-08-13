@@ -32,7 +32,7 @@ const manifest = {
     48: 'icon-48.png',
     128: 'icon-128.png',
   },
-  permissions: ['notifications'],
+  permissions: ['notifications', 'storage'],
   web_accessible_resources: [
     {
       resources: ['assets/*', 'chunks/*', 'icon-*.png'],

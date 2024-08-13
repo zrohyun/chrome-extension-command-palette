@@ -14,7 +14,7 @@ const manifestJs = resolve(root, 'manifest.js')
 function injectManifest() {
   ensureDir(dist)
     .then(() => {
-      import('../manifest.js')
+      import(`../manifest.js?${Date.now()}`)
         .then(({ default: manifest }) => {
           const json = JSON.stringify(manifest, null, 2)
           writeFile(manifestJson, json, { flag: 'w' }, (err) => {
