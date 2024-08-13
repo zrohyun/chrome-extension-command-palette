@@ -1,5 +1,6 @@
 import Body from '@/components/body'
-import { useTheme, type Theme } from '@/components/theme-provider'
+import { useTheme } from '@/lib/hooks/use-theme'
+import type { Theme } from '@/components/theme-provider'
 
 type Props = {
   theme: Theme
