@@ -5,11 +5,15 @@ import type { BuildOptions } from 'vite'
 
 const plugins = undefined
 const buildOptions: BuildOptions = {
-  lib: {
-    name: 'content',
-    entry: resolve(src, 'content', 'main.tsx'),
-    formats: ['iife'],
-    fileName: () => 'content.js',
+  rollupOptions: {
+    input: {
+      popup: resolve(src, 'popup', 'main.tsx'),
+    },
+    output: {
+      entryFileNames: '[name].js',
+      assetFileNames: 'assets/[name][extname]',
+      chunkFileNames: 'chunks/[name].js',
+    },
   },
 }
 

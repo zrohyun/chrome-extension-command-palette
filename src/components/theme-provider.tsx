@@ -2,7 +2,6 @@ import {
   useEffect,
   createContext,
   type Dispatch,
-  type RefObject,
   type SetStateAction,
 } from 'react'
 import { useStorageState } from '@/lib/hooks/use-storage-state'
@@ -10,7 +9,6 @@ import type { Theme } from '@/lib/types'
 
 type ThemeProviderProps = {
   children: React.ReactNode
-  body: RefObject<HTMLElement | null>
   initialTheme?: Theme
 }
 
@@ -29,7 +27,6 @@ export const ThemeProviderContext =
 
 export function ThemeProvider({
   children,
-  body,
   initialTheme = 'system',
   ...props
 }: ThemeProviderProps) {
@@ -37,16 +34,16 @@ export function ThemeProvider({
 
   useEffect(() => {
     if (theme == null) return
-    if (body.current == null) return
 
-    body.current.classList.remove('light', 'dark')
+    const root = window.document.documentElement
+    root.classList.remove('light', 'dark')
 
     if (theme === 'system') {
-      body.current.classList.add(getSystemTheme())
+      root.classList.add(getSystemTheme())
     } else {
-      body.current.classList.add(theme)
+      root.classList.add(theme)
     }
-  }, [body, theme])
+  }, [theme])
 
   const value = {
     theme,

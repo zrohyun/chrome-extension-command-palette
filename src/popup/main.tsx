@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from '@/options/app'
+import App from '@/popup/app'
 import '@/globals.css'
 
 const root = document.getElementById('root')

@@ -48,7 +48,7 @@ export default function CommandInputSingle({
   return (
     <Command
       onKeyDown={onKeyDown}
-      className="rounded-lg border shadow-2xl focus-visible:ring-transparent focus-visible:outline-none">
+      className="focus-visible:ring-transparent focus-visible:outline-none">
       <CommandInput
         placeholder={placeholder}
         autoFocus
@@ -102,7 +102,8 @@ function SingleItem({ item, onSelect }: SingleItemProps) {
   return (
     <CommandItem
       onSelect={() => onSelect(item)}
-      value={`${item.name}#${item.id}`}>
+      value={`${item.name}#${item.id}`}
+      className="rounded-none">
       <span>{item.name}</span>
     </CommandItem>
   )

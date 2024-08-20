@@ -20,18 +20,23 @@ const manifest = {
       48: 'icon-48.png',
       128: 'icon-128.png',
     },
-    default_title: 'Open options page',
+    default_title: 'Open command palette',
+    default_popup: 'popup.html',
   },
+
   background: {
     type: 'module',
     service_worker: 'background.js',
   },
-  content_scripts: [
-    {
-      matches: ['<all_urls>'],
-      js: ['content.js'],
+  commands: {
+    _execute_action: {
+      suggested_key: {
+        default: 'Ctrl+Shift+P',
+        mac: 'Command+Shift+P',
+      },
+      description: 'Open command palette.',
     },
-  ],
+  },
   icons: {
     16: 'icon-16.png',
     48: 'icon-48.png',

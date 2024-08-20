@@ -7,7 +7,7 @@ export default function ThemeSetting() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-lg font-black">Theme</h1>
+      <h2 className="text-lg font-extrabold">Theme</h2>
       <div className="flex flex-row items-center gap-4">
         <Button
           type="button"

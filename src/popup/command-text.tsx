@@ -40,7 +40,7 @@ export default function CommandInputText({ step, onSelect, onCancel }: Props) {
   return (
     <Command
       onKeyDown={onKeyDown}
-      className="rounded-lg border shadow-2xl focus-visible:ring-transparent focus-visible:outline-none">
+      className="focus-visible:ring-transparent focus-visible:outline-none">
       <Input
         placeholder={placeholder}
         autoFocus

@@ -11,26 +11,8 @@ import {
 import { name, version } from '../../package.json'
 import { actionsById } from '@/lib/commands/actions-by-id'
 
-function suggestRefreshingAllTabs() {
-  chrome.notifications.create(`${name}-refresh`, {
-    type: 'basic',
-    iconUrl: 'icon-48.png',
-    title: name,
-    message: 'Click "Refresh" to refresh all tabs.',
-    buttons: [{ title: 'Refresh' }, { title: 'Cancel' }],
-    requireInteraction: true,
-  })
-}
-
-async function refreshAllTabs(id: string, buttonIndex: number) {
-  if (id !== `${name}-refresh`) return
-  if (buttonIndex === 1) return
-
-  const tabs = await chrome.tabs.query({})
-  tabs
-    .map(({ id }) => id)
-    .filter((id) => id != null)
-    .forEach((tabId) => chrome.tabs.reload(tabId))
+function openOptionsPage() {
+  chrome.runtime.openOptionsPage()
 }
 
 function notifyVersionUpdate(previousVersion: string, currentVersion: string) {
@@ -40,7 +22,6 @@ function notifyVersionUpdate(previousVersion: string, currentVersion: string) {
     title: name,
     message: `Successfully updated version from ${previousVersion} to ${currentVersion}.`,
   })
-  suggestRefreshingAllTabs()
 }
 
 function notifyInstallation(extensionName: string) {
@@ -50,19 +31,15 @@ function notifyInstallation(extensionName: string) {
     title: extensionName,
     message: `Successfully installed ${extensionName}.`,
   })
-  suggestRefreshingAllTabs()
 }
 
-function notifyOnInstallOrUpdate(detail: chrome.runtime.InstalledDetails) {
+function onInstallOrUpdate(detail: chrome.runtime.InstalledDetails) {
   if (detail.previousVersion) {
     notifyVersionUpdate(detail.previousVersion, version)
   } else {
     notifyInstallation(name)
+    openOptionsPage()
   }
-}
-
-function openOptionsPage() {
-  chrome.runtime.openOptionsPage()
 }
 
 function getStep(selections: TSelected[]) {
@@ -146,7 +123,5 @@ function runAction(
 
 // ======================================================
 
-chrome.notifications.onButtonClicked.addListener(refreshAllTabs)
-chrome.runtime.onInstalled.addListener(notifyOnInstallOrUpdate)
+chrome.runtime.onInstalled.addListener(onInstallOrUpdate)
 chrome.runtime.onMessage.addListener(runAction)
-chrome.action.onClicked.addListener(openOptionsPage)

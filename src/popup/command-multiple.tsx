@@ -75,7 +75,7 @@ export default function CommandInputMultiple({
   return (
     <Command
       onKeyDown={onKeyDown}
-      className="rounded-lg border shadow-2xl focus-visible:ring-transparent focus-visible:outline-none">
+      className="focus-visible:ring-transparent focus-visible:outline-none">
       <CommandInput
         placeholder={placeholder}
         autoFocus
@@ -166,7 +166,8 @@ function MultipleItem({ item, isSelected, onToggle }: MultipleItemProps) {
   return (
     <CommandItem
       onSelect={() => onToggle(item)}
-      value={`${item.name}#${item.id}`}>
+      value={`${item.name}#${item.id}`}
+      className="rounded-none">
       {isSelected(item) ? (
         <CheckCircledIcon className="mr-2 size-4 shrink-0" />
       ) : (

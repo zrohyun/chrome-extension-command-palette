@@ -39,9 +39,9 @@ const background = {
 }
 
 /** @type {import("concurrently").Command} */
-const content = {
-  name: 'Content Script',
-  command: VITE_WATCH + 'content.ts',
+const popup = {
+  name: 'Popup',
+  command: VITE_WATCH + 'popup.ts',
 }
 
 /** @type {import("concurrently").Command} */
@@ -74,4 +74,4 @@ try {
   throw e
 }
 
-concurrently([settings, background, content, manifest, copyPublic])
+concurrently([settings, background, popup, manifest, copyPublic])
