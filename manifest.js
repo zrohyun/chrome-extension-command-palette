@@ -15,7 +15,12 @@ const manifest = {
   version,
   description,
   action: {
-    default_popup: 'settings.html',
+    default_icon: {
+      16: 'icon-16.png',
+      48: 'icon-48.png',
+      128: 'icon-128.png',
+    },
+    default_title: 'Open options page',
   },
   background: {
     type: 'module',
@@ -32,7 +37,15 @@ const manifest = {
     48: 'icon-48.png',
     128: 'icon-128.png',
   },
-  permissions: ['notifications', 'storage'],
+  options_page: 'options.html',
+  permissions: [
+    'notifications',
+    'storage',
+    'management',
+    'tabs',
+    'tabGroups',
+    'bookmarks',
+  ],
   web_accessible_resources: [
     {
       resources: ['assets/*', 'chunks/*', 'icon-*.png'],

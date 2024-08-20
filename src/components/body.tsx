@@ -1,17 +1,20 @@
 import { useRef, type ReactNode } from 'react'
-import { ThemeProvider, type Theme } from './theme-provider'
+import { ThemeProvider } from './theme-provider'
+import type { Theme } from '@/lib/types'
 
 type Props = {
   theme: Theme
+  className?: string
   children?: ReactNode
 }
 
-export default function Body({ theme: initialTheme, children }: Props) {
+export default function Body({ theme, className, children }: Props) {
   const body = useRef<HTMLDivElement>(null)
+  const bodyId = 'chrome-extension-command-palette-body'
 
   return (
-    <div id="chrome-extension-command-palette-body" ref={body}>
-      <ThemeProvider initialTheme={initialTheme} body={body}>
+    <div id={bodyId} ref={body} className={className}>
+      <ThemeProvider initialTheme={theme} body={body}>
         {children}
       </ThemeProvider>
     </div>

@@ -5,15 +5,9 @@ import type { BuildOptions } from 'vite'
 
 const plugins = undefined
 const buildOptions: BuildOptions = {
-  // lib: {
-  //   name: "settings",
-  //   entry: resolve(src, "settings", "index.tsx"),
-  //   formats: ["iife"],
-  //   fileName: () => "settings.js",
-  // },
   rollupOptions: {
     input: {
-      settings: resolve(src, 'settings', 'main.tsx'),
+      options: resolve(src, 'options', 'main.tsx'),
     },
     output: {
       entryFileNames: '[name].js',

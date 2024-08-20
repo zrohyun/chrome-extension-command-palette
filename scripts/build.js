@@ -15,7 +15,10 @@ Running in ${isDev ? 'development' : 'production'} mode.
 `)
 
 const VITE_WATCH = join(
+  // prevents production build in dev mode
   isDev && '__DEV__=true',
+  // expose mode in dev mode
+  isDev && 'VITE_DEV=true',
   'vite build',
   isDev && '--watch',
   '--config vite-configs/'
@@ -25,8 +28,8 @@ const VITE_WATCH = join(
 
 /** @type {import("concurrently").Command} */
 const settings = {
-  name: 'Settings page',
-  command: VITE_WATCH + 'settings.ts',
+  name: 'Options page',
+  command: VITE_WATCH + 'options.ts',
 }
 
 /** @type {import("concurrently").Command} */

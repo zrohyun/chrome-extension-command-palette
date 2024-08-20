@@ -1,7 +1,12 @@
-import { createContext, useEffect, useState } from 'react'
-import type { RefObject } from 'react'
-
-export type Theme = 'dark' | 'light' | 'system'
+import {
+  useEffect,
+  createContext,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+} from 'react'
+import { useStorageState } from '@/lib/hooks/use-storage-state'
+import type { Theme } from '@/lib/types'
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -11,12 +16,12 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme
-  setTheme: (theme: Theme) => void
+  setTheme: Dispatch<SetStateAction<Theme>>
 }
 
 const initialState: ThemeProviderState = {
   theme: 'system',
-  setTheme: () => null,
+  setTheme: () => 'system',
 }
 
 export const ThemeProviderContext =
@@ -28,54 +33,24 @@ export function ThemeProvider({
   initialTheme = 'system',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(initialTheme)
+  const [theme, setTheme] = useStorageState<Theme>('theme', initialTheme)
 
   useEffect(() => {
-    function onThemeChange(
-      changes: {
-        [key: string]: chrome.storage.StorageChange
-      },
-      areaName: chrome.storage.AreaName
-    ) {
-      if (
-        areaName === 'sync' &&
-        changes['theme'] != null &&
-        changes['theme'].newValue != null
-      ) {
-        setTheme(changes['theme'].newValue as Theme)
-      }
-    }
-
-    chrome.storage.onChanged.addListener(onThemeChange)
-    return () => chrome.storage.onChanged.removeListener(onThemeChange)
-  }, [initialTheme])
-
-  useEffect(() => {
-    if (body.current == null) {
-      console.log('body is null')
-      return
-    }
+    if (theme == null) return
+    if (body.current == null) return
 
     body.current.classList.remove('light', 'dark')
 
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light'
-
-      body.current.classList.add(systemTheme)
-      return
+      body.current.classList.add(getSystemTheme())
+    } else {
+      body.current.classList.add(theme)
     }
-
-    body.current.classList.add(theme)
   }, [body, theme])
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      chrome.storage.sync.set({ theme })
-    },
+    setTheme,
   }
 
   return (
@@ -83,4 +58,9 @@ export function ThemeProvider({
       {children}
     </ThemeProviderContext.Provider>
   )
+}
+
+function getSystemTheme() {
+  const query = '(prefers-color-scheme: dark)'
+  return window.matchMedia(query).matches ? 'dark' : 'light'
 }
